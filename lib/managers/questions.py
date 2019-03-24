@@ -23,12 +23,16 @@ class QuestionManager(ABC):
 
 class RandomQuestionManager(QuestionManager):
 
+    def __init__(self, database_manager, package):
+        super().__init__(database_manager, package)
+        self.type = RANDOM
+
     def get_next_question(self, state, **kwargs):
         return self.get_random_question_excluding(state.questions)
 
     def get_random_question_excluding(self, questions):
         while True:  # TODO: Improve the get_random logic
-            question = self.database_manager.get_random_question(self.package.start_index, self.package.end_index)
+            question = self.database_manager.get_random_question(self.package['startIndex'], self.package['endIndex'])
             if question not in questions:
                 return question
 
