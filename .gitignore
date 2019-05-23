@@ -3,4 +3,7 @@ __pycache__/
 venv/
 migrations/
 dumps/
+keys/
 *.py[cod]
+db.sqlite3
+*.log
