@@ -87,11 +87,11 @@ LOGGING = {
     'disable_existing_loggers': False,
     'formatters': {
         'verbose': {
-            'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
+            'format': '{levelname} | {asctime} | {module} | {funcName} | {lineno} |{process:d} | {thread:d} | {message}',
             'style': '{',
         },
         'simple': {
-            'format': '{levelname} {message}',
+            'format': '{levelname} | {asctime} | {module} | {funcName} | {lineno} | {message}',
             'style': '{',
         },
     },
@@ -103,14 +103,16 @@ LOGGING = {
         },
         'file': {
             'level': 'DEBUG',
-            'class': 'logging.FileHandler',
-            'filename': 'api.log',
-            'formatter': 'verbose'
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': 'app.log',
+            'formatter': 'verbose',
+            'maxBytes': 1024 * 1024,  # 1 MB
+            'backupCount': 2,
         },
     },
     'loggers': {
         'django': {
-            'handlers': ['console'],
+            'handlers': ['console', 'file'],
             'level': 'INFO',
             'propagate': True,
         },
